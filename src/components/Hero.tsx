@@ -32,7 +32,10 @@ export default function Hero() {
     let timeout: NodeJS.Timeout;
 
     if (!deleting && displayed.length < current.length) {
-      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
+      timeout = setTimeout(
+        () => setDisplayed(current.slice(0, displayed.length + 1)),
+        80,
+      );
     } else if (!deleting && displayed.length === current.length) {
       timeout = setTimeout(() => setDeleting(true), 2000);
     } else if (deleting && displayed.length > 0) {
@@ -76,8 +79,7 @@ export default function Hero() {
           className="text-5xl sm:text-7xl font-bold tracking-tight mb-4 animate-fade-in-up"
           style={{ animationDelay: "0.2s" }}
         >
-          Hi, I&apos;m{" "}
-          <span className="gradient-text">Rabiul Aid</span>
+          Hi, I&apos;m <span className="gradient-text">Hassan Mahmud</span>
         </h1>
 
         {/* Typing role */}
@@ -106,7 +108,9 @@ export default function Hero() {
             href="#projects"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .querySelector("#projects")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-xl shadow-indigo-500/25 animate-pulse-glow"
           >
@@ -116,7 +120,9 @@ export default function Hero() {
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .querySelector("#contact")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-8 py-3.5 rounded-full border border-white/15 text-slate-300 font-semibold hover:bg-white/5 hover:border-white/30 hover:text-white transition-all duration-200"
           >
@@ -131,8 +137,16 @@ export default function Hero() {
         >
           {[
             { icon: GithubIcon, href: "https://github.com", label: "GitHub" },
-            { icon: LinkedinIcon, href: "https://linkedin.com", label: "LinkedIn" },
-            { icon: Mail, href: "mailto:rabiulaid@gmail.com", label: "Email" },
+            {
+              icon: LinkedinIcon,
+              href: "https://linkedin.com",
+              label: "LinkedIn",
+            },
+            {
+              icon: Mail,
+              href: "mailto:hassanmahmud.sa@gmail.com",
+              label: "Email",
+            },
             { icon: Download, href: "/resume.pdf", label: "Resume" },
           ].map(({ icon: Icon, href, label }) => (
             <a
@@ -156,7 +170,9 @@ export default function Hero() {
           href="#about"
           onClick={(e) => {
             e.preventDefault();
-            document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+            document
+              .querySelector("#about")
+              ?.scrollIntoView({ behavior: "smooth" });
           }}
           className="inline-flex flex-col items-center gap-2 text-slate-500 hover:text-slate-300 transition-colors animate-bounce"
         >

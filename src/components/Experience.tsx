@@ -5,10 +5,10 @@ import { Briefcase, ExternalLink } from "lucide-react";
 
 const experiences = [
   {
-    role: "Principal Software Engineer",
-    company: "TechScale Corp",
+    role: "Senior Project Manager",
+    company: "BJIT Inc",
     url: "#",
-    period: "2020 — Present",
+    period: "2023 — Present",
     type: "Full-time",
     description:
       "Leading architecture and delivery of a multi-tenant SaaS platform serving 2M+ users. Drove migration from monolith to microservices, reducing deployment time by 70% and infrastructure cost by 40%.",
@@ -21,10 +21,10 @@ const experiences = [
     accent: "from-indigo-500 to-violet-500",
   },
   {
-    role: "Senior Software Engineer",
-    company: "FinTech Innovations",
+    role: "Principal Software Engineer",
+    company: "BJIT Ltd",
     url: "#",
-    period: "2016 — 2020",
+    period: "2022 — 2023",
     type: "Full-time",
     description:
       "Built core banking APIs and real-time payment processing systems handling £5M+ daily transactions. Ensured PCI-DSS compliance and 99.99% uptime SLA.",
@@ -37,33 +37,96 @@ const experiences = [
     accent: "from-violet-500 to-purple-500",
   },
   {
-    role: "Software Engineer",
-    company: "E-Commerce Solutions Ltd",
+    role: "Senior Software Engineer",
+    company: "BJIT Ltd",
     url: "#",
-    period: "2013 — 2016",
+    period: "2018 — 2022",
     type: "Full-time",
     description:
       "Developed full-stack features for a high-traffic retail platform with 500k daily visitors. Owned search, recommendation engine, and checkout optimizations.",
     highlights: [
-      "Built Elasticsearch-powered search boosting conversion by 25%",
-      "Optimised database queries cutting avg page load from 3s to 400ms",
-      "Delivered mobile-responsive redesign increasing mobile revenue 35%",
+      "Integrated SRE (Speech Recognition) API into a web app for targeting the Japanese people.",
+      "Developed a music blog for a Japanese client.",
+      "Worked in QR based payment method used in Japan for Japanese vending machines.",
+      "Developed a railway information website for targeting the audience who are aiming to visit Japan.",
+      "Optimized performance of an e-commerce site by 30%  targeting the Japanese market.",
+      "Migrated Javascript React project to Typescript React to support TypeScript features.",
     ],
     tech: ["PHP", "Laravel", "Vue.js", "MySQL", "Elasticsearch", "Redis"],
     accent: "from-purple-500 to-pink-500",
   },
   {
-    role: "Junior Developer",
-    company: "Digital Agency Co",
+    role: "Software Engineer",
+    company: "Ambala IT",
     url: "#",
-    period: "2011 — 2013",
+    period: "2016 — 2018",
     type: "Full-time",
     description:
       "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
     highlights: [
-      "Delivered 20+ client websites on time and budget",
-      "Introduced version control (Git) to agency workflow",
-      "Built custom WordPress plugins and REST API integrations",
+      "Technical leader of software development team consists of 7 members.",
+      "Lead ERP and Micro Finance software development team since 2015.",
+      "Developing an ERP large scale software including 5 modules (Inventory, FAMS – Fixed Asset Management System, Procurement, HR and Payroll and Accounting).",
+      "Developing Micro Finance software for NGO.",
+      "Managing server with Linux Cent OS.",
+    ],
+    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
+    accent: "from-pink-500 to-rose-500",
+  },
+  {
+    role: "Software Engineer",
+    company: "Orange BD",
+    url: "#",
+    period: "2012 — 2015",
+    type: "Full-time",
+    description:
+      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
+    highlights: [
+      "Website Development using WordPress and custom CMS.",
+      "Software and Web Application Development by using PHP, MySQL, JavaScript, jQuery, AJAX, JSON.",
+      "Customized Web Application.",
+      "Lead a team of Quality Control (QC) as a Head of QC.",
+      "Lead a team of Junior Software Engineer.",
+      "Supervise an Oursourcing Department for the proper guidance and the individual development.",
+    ],
+    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
+    accent: "from-pink-500 to-rose-500",
+  },
+  {
+    role: "Programmer",
+    company: "Software Address",
+    url: "#",
+    period: "2012 — 2012",
+    type: "Full-time",
+    description:
+      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
+    highlights: [
+      "PSD to HTML conversion.",
+      "HTML to WordPress conversion.",
+      "Custom Software Development using PHP and MySQL.",
+      "Website and Blog Development using WordPress.",
+      "Website Development using Joomla, Drupal.",
+      "Website Redesign and Maintenance.",
+      "Customized Web Application.",
+    ],
+    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
+    accent: "from-pink-500 to-rose-500",
+  },
+  {
+    role: "Web Developer",
+    company: "Untitled IT Solutions",
+    url: "#",
+    period: "2011 — 2011",
+    type: "Full-time",
+    description:
+      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
+    highlights: [
+      "PSD to HTML conversion.",
+      "HTML to WordPress conversion.",
+      "Website and Blog Development using WordPress.",
+      "Customization and Modification of WordPress and WordPress plugins.",
+      "Website Redesign and Maintenance.",
+      "Customized Web Application.",
     ],
     tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
     accent: "from-pink-500 to-rose-500",
@@ -78,13 +141,15 @@ export default function Experience() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".section-reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 100);
-            });
+            entry.target
+              .querySelectorAll(".section-reveal")
+              .forEach((el, i) => {
+                setTimeout(() => el.classList.add("visible"), i * 100);
+              });
           }
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.05 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -120,7 +185,9 @@ export default function Experience() {
                   {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
                     <div>
-                      <h3 className="text-white font-bold text-xl">{exp.role}</h3>
+                      <h3 className="text-white font-bold text-xl">
+                        {exp.role}
+                      </h3>
                       <div className="flex items-center gap-2 mt-1">
                         <a
                           href={exp.url}
@@ -137,7 +204,10 @@ export default function Experience() {
                     </div>
                     <span
                       className={`text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r ${exp.accent} bg-opacity-10 text-white whitespace-nowrap self-start`}
-                      style={{ background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.25)" }}
+                      style={{
+                        background: "rgba(99,102,241,0.12)",
+                        border: "1px solid rgba(99,102,241,0.25)",
+                      }}
                     >
                       {exp.period}
                     </span>
@@ -150,8 +220,13 @@ export default function Experience() {
                   {/* Highlights */}
                   <ul className="space-y-1.5 mb-4">
                     {exp.highlights.map((h, j) => (
-                      <li key={j} className="flex items-start gap-2 text-slate-400 text-sm">
-                        <span className={`mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-gradient-to-r ${exp.accent}`} />
+                      <li
+                        key={j}
+                        className="flex items-start gap-2 text-slate-400 text-sm"
+                      >
+                        <span
+                          className={`mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-gradient-to-r ${exp.accent}`}
+                        />
                         {h}
                       </li>
                     ))}

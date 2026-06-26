@@ -22,15 +22,34 @@ const XIcon = () => (
 );
 
 const contactLinks = [
-  { icon: Mail, label: "Email", value: "rabiulaid@gmail.com", href: "mailto:rabiulaid@gmail.com" },
-  { icon: GithubIcon, label: "GitHub", value: "github.com/rabiulaid", href: "https://github.com" },
-  { icon: LinkedinIcon, label: "LinkedIn", value: "linkedin.com/in/rabiulaid", href: "https://linkedin.com" },
-  { icon: XIcon, label: "Twitter/X", value: "@rabiulaid", href: "https://twitter.com" },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "hassanmahmud.sa@gmail.com",
+    href: "mailto:hassanmahmud.sa@gmail.com",
+  },
+  {
+    icon: GithubIcon,
+    label: "GitHub",
+    value: "github.com/khassanmahmud",
+    href: "https://github.com",
+  },
+  {
+    icon: LinkedinIcon,
+    label: "LinkedIn",
+    value: "linkedin.com/in/khassanmahmud",
+    href: "https://linkedin.com",
+  },
 ];
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -39,13 +58,15 @@ export default function Contact() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".section-reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 100);
-            });
+            entry.target
+              .querySelectorAll(".section-reveal")
+              .forEach((el, i) => {
+                setTimeout(() => el.classList.add("visible"), i * 100);
+              });
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -71,7 +92,8 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
-            Whether you have a project in mind, need a technical advisor, or just want to chat — my inbox is always open.
+            Whether you have a project in mind, need a technical advisor, or
+            just want to chat — my inbox is always open.
           </p>
         </div>
 
@@ -79,11 +101,14 @@ export default function Contact() {
           {/* Left — info */}
           <div className="space-y-8">
             <div className="section-reveal">
-              <h3 className="text-xl font-semibold text-white mb-4">Let&apos;s connect</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">
+                Let&apos;s connect
+              </h3>
               <p className="text-slate-400 leading-relaxed">
-                I&apos;m currently available for freelance work, consulting engagements, and senior
-                full-time roles. If you have an interesting project or opportunity, I&apos;d love to
-                hear about it.
+                I&apos;m currently available for freelance work, consulting
+                engagements, and senior full-time roles. If you have an
+                interesting project or opportunity, I&apos;d love to hear about
+                it.
               </p>
             </div>
 
@@ -100,8 +125,12 @@ export default function Contact() {
                     <Icon className="w-5 h-5 text-indigo-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500 uppercase tracking-wider">{label}</div>
-                    <div className="text-slate-300 text-sm font-medium group-hover:text-white transition-colors">{value}</div>
+                    <div className="text-xs text-slate-500 uppercase tracking-wider">
+                      {label}
+                    </div>
+                    <div className="text-slate-300 text-sm font-medium group-hover:text-white transition-colors">
+                      {value}
+                    </div>
                   </div>
                 </a>
               ))}
@@ -111,11 +140,13 @@ export default function Contact() {
               <div className="glass-card rounded-2xl p-4">
                 <MapPin className="w-5 h-5 text-indigo-400 mb-2" />
                 <div className="text-white text-sm font-medium">Location</div>
-                <div className="text-slate-400 text-sm">London, UK</div>
+                <div className="text-slate-400 text-sm">Tokyo, Japan</div>
               </div>
               <div className="glass-card rounded-2xl p-4">
                 <Clock className="w-5 h-5 text-violet-400 mb-2" />
-                <div className="text-white text-sm font-medium">Response time</div>
+                <div className="text-white text-sm font-medium">
+                  Response time
+                </div>
                 <div className="text-slate-400 text-sm">Within 24 hours</div>
               </div>
             </div>
@@ -130,10 +161,14 @@ export default function Contact() {
                 </div>
                 <h3 className="text-white font-bold text-xl">Message Sent!</h3>
                 <p className="text-slate-400">
-                  Thanks for reaching out. I&apos;ll get back to you within 24 hours.
+                  Thanks for reaching out. I&apos;ll get back to you within 24
+                  hours.
                 </p>
                 <button
-                  onClick={() => { setSubmitted(false); setForm({ name: "", email: "", subject: "", message: "" }); }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setForm({ name: "", email: "", subject: "", message: "" });
+                  }}
                   className="mt-2 text-indigo-400 hover:text-indigo-300 text-sm underline"
                 >
                   Send another message
@@ -154,7 +189,9 @@ export default function Contact() {
                       required
                       placeholder="Your name"
                       value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, name: e.target.value })
+                      }
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-indigo-500/5 transition-all"
                     />
                   </div>
@@ -167,7 +204,9 @@ export default function Contact() {
                       required
                       placeholder="your@email.com"
                       value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, email: e.target.value })
+                      }
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-indigo-500/5 transition-all"
                     />
                   </div>
@@ -181,7 +220,9 @@ export default function Contact() {
                     required
                     placeholder="Project inquiry, job opportunity..."
                     value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, subject: e.target.value })
+                    }
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-indigo-500/5 transition-all"
                   />
                 </div>
@@ -194,7 +235,9 @@ export default function Contact() {
                     rows={5}
                     placeholder="Tell me about your project or what you have in mind..."
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, message: e.target.value })
+                    }
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-indigo-500/5 transition-all resize-none"
                   />
                 </div>

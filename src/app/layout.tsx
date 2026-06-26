@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rabiul Aid — Software Developer",
+  title: "Hassan Mahmud — Software Developer",
   description:
     "Senior software developer with 15+ years of experience building scalable, high-performance applications.",
 };

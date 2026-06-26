@@ -18,13 +18,15 @@ export default function About() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".section-reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 100);
-            });
+            entry.target
+              .querySelectorAll(".section-reveal")
+              .forEach((el, i) => {
+                setTimeout(() => el.classList.add("visible"), i * 100);
+              });
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -49,7 +51,9 @@ export default function About() {
               {/* Avatar placeholder */}
               <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-3xl bg-gradient-to-br from-indigo-600/20 to-violet-600/20 border border-white/10 flex items-center justify-center glass-card animate-pulse-glow">
                 <div className="text-center">
-                  <div className="text-7xl font-bold gradient-text mb-2">RA</div>
+                  <div className="text-7xl font-bold gradient-text mb-2">
+                    RA
+                  </div>
                   <div className="text-slate-400 text-sm">Your photo here</div>
                 </div>
               </div>
@@ -72,24 +76,26 @@ export default function About() {
                 Senior Software Developer & Architect
               </h3>
               <p className="text-slate-400 leading-relaxed">
-                I&apos;m a passionate software developer with over 15 years of experience
-                designing and building scalable web applications, APIs, and distributed systems.
-                I thrive at the intersection of clean architecture and pragmatic delivery.
+                I&apos;m a passionate software developer with over 15 years of
+                experience designing and building scalable web applications,
+                APIs, and distributed systems. I thrive at the intersection of
+                clean architecture and pragmatic delivery.
               </p>
             </div>
             <div className="section-reveal">
               <p className="text-slate-400 leading-relaxed">
-                Throughout my career I&apos;ve worn many hats — from individual contributor to
-                tech lead — guiding teams across fintech, e-commerce, and SaaS. I care
-                deeply about code quality, developer experience, and shipping products
-                that actually make a difference.
+                Throughout my career I&apos;ve worn many hats — from individual
+                contributor to tech lead — guiding teams across fintech,
+                e-commerce, and SaaS. I care deeply about code quality,
+                developer experience, and shipping products that actually make a
+                difference.
               </p>
             </div>
             <div className="section-reveal">
               <p className="text-slate-400 leading-relaxed">
-                When I&apos;m not coding, I&apos;m mentoring junior developers, contributing to
-                open source, or exploring the latest advancements in cloud-native
-                and AI-assisted development.
+                When I&apos;m not coding, I&apos;m mentoring junior developers,
+                contributing to open source, or exploring the latest
+                advancements in cloud-native and AI-assisted development.
               </p>
             </div>
 
