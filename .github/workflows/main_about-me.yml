@@ -32,16 +32,11 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-      - name: Prepare standalone deployment
-        run: |
-          cp -r public .next/standalone/public
-          cp -r .next/static .next/standalone/.next/static
-
       - name: Upload standalone artifact
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-app
-          path: .next/standalone
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
