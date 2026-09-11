@@ -79,7 +79,7 @@ export default function Hero() {
           className="text-5xl sm:text-7xl font-bold tracking-tight mb-4 animate-fade-in-up"
           style={{ animationDelay: "0.2s" }}
         >
-          Hi, I&apos;m <span className="gradient-text">Md. Rabiul Hassan Mahmud</span>
+          Hi, I&apos;m <span className="gradient-text">Hassan Mahmud</span>
         </h1>
 
         {/* Typing role */}
