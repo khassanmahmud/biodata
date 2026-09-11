@@ -40,7 +40,7 @@ export default function About() {
             Get to know me
           </p>
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
-            About Me Here
+            About Me
           </h2>
         </div>
 
