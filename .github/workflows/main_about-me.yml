@@ -18,16 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DD0DE458DD2948DE8BD7BBA43C178471 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_48BA00A1483A4FC5985EC89823816E39 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2C3C32454A84430F832C6772AB3E3DF5 }}
-
       - name: Login to ACR
-        run: |
-          az acr login --name projectacr    
+        uses: azure/docker-login@v1
+        with:
+          login-server: projectacr.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
