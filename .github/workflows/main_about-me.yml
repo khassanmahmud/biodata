@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - about-me
+name: Build and deploy Next.js container to Azure
 
 on:
   push:
@@ -9,32 +6,43 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  ACR_LOGIN_SERVER: projectacr.azurecr.io
+  IMAGE_NAME: about-me
+  APP_NAME: about-me
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source code
+        uses: actions/checkout@v4
 
+      # Login to Azure Container Registry
       - name: Login to ACR
         uses: azure/docker-login@v1
         with:
-          login-server: projectacr.azurecr.io
+          login-server: ${{ env.ACR_LOGIN_SERVER }}
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
-        with:
-          node-version: '24.x'
+      # Build on GitHub's AMD64 runner.
+      # This avoids the ARM64/QEMU problem from Apple Silicon Macs.
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            .
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-app
-          path: .
+      # Push image to Azure Container Registry
+      - name: Push Docker image
+        run: |
+          docker push \
+            ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,17 +53,18 @@ jobs:
       contents: read
 
     steps:
+      # Login to Azure using GitHub OIDC
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9DAC4E8E773F459B98F8EAF7BCFD030A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BA1CA847BFD342568095CE509D740A27 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
+      # Deploy the Docker image to App Service
       - name: Deploy container to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: about-me
+          app-name: ${{ env.APP_NAME }}
           slot-name: Production
-          images: projectacr.azurecr.io/my-next-app:${{ github.sha }}
-          
+          images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
