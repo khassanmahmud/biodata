@@ -18,6 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: projectacr.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
