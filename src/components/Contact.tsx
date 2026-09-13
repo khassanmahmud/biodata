@@ -42,6 +42,12 @@ const contactLinks = [
   },
 ];
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+
+interface ApiErrorBody {
+  error?: { message?: string };
+}
+
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
   const [form, setForm] = useState({
@@ -52,6 +58,7 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,10 +82,34 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate sending — wire up to your preferred service (Formspree, Resend, etc.)
-    await new Promise((r) => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const payload = (await response
+          .json()
+          .catch(() => null)) as ApiErrorBody | null;
+        throw new Error(
+          payload?.error?.message ?? "Something went wrong. Please try again.",
+        );
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -167,6 +198,7 @@ export default function Contact() {
                 <button
                   onClick={() => {
                     setSubmitted(false);
+                    setError(null);
                     setForm({ name: "", email: "", subject: "", message: "" });
                   }}
                   className="mt-2 text-indigo-400 hover:text-indigo-300 text-sm underline"
@@ -241,6 +273,11 @@ export default function Contact() {
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-indigo-500/5 transition-all resize-none"
                   />
                 </div>
+                {error && (
+                  <p className="text-sm text-rose-400 bg-rose-500/10 border border-rose-500/30 rounded-xl px-4 py-3">
+                    {error}
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={loading}
