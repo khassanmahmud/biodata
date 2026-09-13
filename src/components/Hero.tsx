@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { ArrowDown, Mail, Download } from "lucide-react";
 
+import type { SectionKey } from "@/lib/sections";
+import type { Profile } from "@/lib/types";
+
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -15,20 +18,21 @@ const LinkedinIcon = () => (
   </svg>
 );
 
-const roles = [
-  "Full-Stack Developer",
-  "Software Architect",
-  "Backend Engineer",
-  "Tech Lead",
-];
-
-export default function Hero() {
+export default function Hero({
+  profile,
+  onNavigate,
+}: {
+  profile: Profile;
+  onNavigate: (section: SectionKey) => void;
+}) {
+  const { roles } = profile;
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const current = roles[roleIndex];
+    if (roles.length === 0) return;
+    const current = roles[roleIndex] ?? "";
     let timeout: NodeJS.Timeout;
 
     if (!deleting && displayed.length < current.length) {
@@ -46,7 +50,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timeout);
-  }, [displayed, deleting, roleIndex]);
+  }, [displayed, deleting, roleIndex, roles]);
 
   return (
     <section
@@ -71,7 +75,7 @@ export default function Hero() {
           style={{ animationDelay: "0.1s" }}
         >
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          Open to new opportunities
+          {profile.availability}
         </div>
 
         {/* Name */}
@@ -79,7 +83,7 @@ export default function Hero() {
           className="text-5xl sm:text-7xl font-bold tracking-tight mb-4 animate-fade-in-up"
           style={{ animationDelay: "0.2s" }}
         >
-          Hi, I&apos;m <span className="gradient-text">Md. Rabiul Hassan Mahmud</span>
+          Hi, I&apos;m <span className="gradient-text">{profile.name}</span>
         </h1>
 
         {/* Typing role */}
@@ -95,8 +99,7 @@ export default function Hero() {
           className="text-slate-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10 animate-fade-in-up"
           style={{ animationDelay: "0.6s" }}
         >
-          15+ years crafting robust, scalable software. From startup MVPs to
-          enterprise systems — I turn complex problems into elegant solutions.
+          {profile.tagline}
         </p>
 
         {/* CTAs */}
@@ -104,30 +107,20 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fade-in-up"
           style={{ animationDelay: "0.8s" }}
         >
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .querySelector("#projects")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+          <button
+            type="button"
+            onClick={() => onNavigate("projects")}
             className="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-xl shadow-indigo-500/25 animate-pulse-glow"
           >
             View My Work
-          </a>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .querySelector("#contact")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+          </button>
+          <button
+            type="button"
+            onClick={() => onNavigate("contact")}
             className="px-8 py-3.5 rounded-full border border-white/15 text-slate-300 font-semibold hover:bg-white/5 hover:border-white/30 hover:text-white transition-all duration-200"
           >
             Contact Me
-          </a>
+          </button>
         </div>
 
         {/* Social links */}
@@ -136,15 +129,14 @@ export default function Hero() {
           style={{ animationDelay: "1s" }}
         >
           {[
-            { icon: GithubIcon, href: "https://github.com", label: "GitHub" },
-            {
-              icon: LinkedinIcon,
-              href: "https://linkedin.com",
-              label: "LinkedIn",
-            },
+            ...profile.socials.map((social) => ({
+              icon: social.label === "LinkedIn" ? LinkedinIcon : GithubIcon,
+              href: social.href,
+              label: social.label,
+            })),
             {
               icon: Mail,
-              href: "mailto:hassanmahmud.sa@gmail.com",
+              href: `mailto:${profile.email}`,
               label: "Email",
             },
             { icon: Download, href: "/resume.pdf", label: "Resume" },
@@ -167,13 +159,7 @@ export default function Hero() {
 
         {/* Scroll hint */}
         <a
-          href="#about"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .querySelector("#about")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
+          href="#section-content"
           className="inline-flex flex-col items-center gap-2 text-slate-500 hover:text-slate-300 transition-colors animate-bounce"
         >
           <span className="text-xs tracking-widest uppercase">Scroll</span>

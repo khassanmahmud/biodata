@@ -2,57 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-type Skill = { name: string; level: number };
-
-const skillCategories: { title: string; color: string; skills: Skill[] }[] = [
-  {
-    title: "Frontend",
-    color: "from-blue-500 to-cyan-500",
-    skills: [
-      { name: "React / Next.js", level: 96 },
-      { name: "TypeScript", level: 94 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Vue.js", level: 82 },
-    ],
-  },
-  {
-    title: "Backend",
-    color: "from-indigo-500 to-violet-500",
-    skills: [
-      { name: "Node.js", level: 97 },
-      { name: "Python / Django", level: 88 },
-      { name: "Go", level: 80 },
-      { name: "Java / Spring", level: 78 },
-    ],
-  },
-  {
-    title: "Data & Infra",
-    color: "from-violet-500 to-purple-500",
-    skills: [
-      { name: "PostgreSQL / MySQL", level: 92 },
-      { name: "Redis / Elasticsearch", level: 85 },
-      { name: "MongoDB", level: 83 },
-      { name: "AWS / GCP", level: 88 },
-    ],
-  },
-  {
-    title: "DevOps & Tools",
-    color: "from-purple-500 to-pink-500",
-    skills: [
-      { name: "Docker / Kubernetes", level: 87 },
-      { name: "CI/CD (GitHub Actions)", level: 90 },
-      { name: "Terraform / IaC", level: 80 },
-      { name: "Linux / Bash", level: 93 },
-    ],
-  },
-];
-
-const techBadges = [
-  "React", "Next.js", "TypeScript", "Node.js", "Python", "Go", "Java",
-  "PostgreSQL", "Redis", "MongoDB", "AWS", "GCP", "Docker", "Kubernetes",
-  "GraphQL", "REST APIs", "Terraform", "CI/CD", "Microservices", "gRPC",
-  "WebSockets", "Kafka", "Redis Streams", "Nginx", "Linux",
-];
+import type { Skill, SkillCategory } from "@/lib/types";
 
 function SkillBar({ name, level, color, delay }: Skill & { color: string; delay: number }) {
   const barRef = useRef<HTMLDivElement>(null);
@@ -83,7 +33,13 @@ function SkillBar({ name, level, color, delay }: Skill & { color: string; delay:
   );
 }
 
-export default function Skills() {
+export default function Skills({
+  categories,
+  techBadges,
+}: {
+  categories: SkillCategory[];
+  techBadges: string[];
+}) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -121,7 +77,7 @@ export default function Skills() {
 
         {/* Skill bars grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {skillCategories.map((cat, ci) => (
+          {categories.map((cat, ci) => (
             <div key={cat.title} className="section-reveal glass-card rounded-3xl p-6 hover:border-white/15 transition-all duration-300">
               <h3 className={`text-sm font-bold uppercase tracking-widest mb-6 bg-gradient-to-r ${cat.color} bg-clip-text text-transparent`}>
                 {cat.title}

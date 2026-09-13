@@ -1,7 +1,7 @@
 import type { Profile } from "../types";
 
 export const profile: Profile = {
-  name: "Rabiul Hassan Mahmud",
+  name: "Md. Rabiul Hassan Mahmud",
   initials: "RA",
   title: "Senior Software Developer & Architect",
   tagline:

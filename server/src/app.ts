@@ -3,6 +3,7 @@ import express, { type Express } from "express";
 import routes from "./routes";
 import { countMessages } from "./messages";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
+import { requestLogger } from "./middleware/requestLogger";
 
 function parseCorsOrigins(): string[] | boolean {
   const configured = process.env.CORS_ORIGIN ?? "http://localhost:3000";
@@ -29,6 +30,7 @@ export function createApp(): Express {
   const app = express();
 
   app.disable("x-powered-by");
+  app.use(requestLogger);
   app.use(cors({ origin: parseCorsOrigins() }));
   app.use(express.json({ limit: "32kb", strict: false }));
 

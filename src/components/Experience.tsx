@@ -3,137 +3,13 @@
 import { useEffect, useRef } from "react";
 import { Briefcase, ExternalLink } from "lucide-react";
 
-const experiences = [
-  {
-    role: "Senior Project Manager",
-    company: "BJIT Inc",
-    url: "#",
-    period: "2023 — Present",
-    type: "Full-time",
-    description:
-      "Leading architecture and delivery of a multi-tenant SaaS platform serving 2M+ users. Drove migration from monolith to microservices, reducing deployment time by 70% and infrastructure cost by 40%.",
-    highlights: [
-      "Designed event-driven architecture using Kafka & Kubernetes",
-      "Mentored a team of 8 engineers across 3 time zones",
-      "Reduced API latency by 60% through caching and query optimization",
-    ],
-    tech: ["Node.js", "React", "Kubernetes", "AWS", "Kafka", "PostgreSQL"],
-    accent: "from-indigo-500 to-violet-500",
-  },
-  {
-    role: "Principal Software Engineer",
-    company: "BJIT Ltd",
-    url: "#",
-    period: "2022 — 2023",
-    type: "Full-time",
-    description:
-      "Built core banking APIs and real-time payment processing systems handling £5M+ daily transactions. Ensured PCI-DSS compliance and 99.99% uptime SLA.",
-    highlights: [
-      "Engineered high-throughput payment pipeline processing 10k TPS",
-      "Led OAuth 2.0 / OpenID Connect identity platform rollout",
-      "Introduced automated testing, raising coverage from 20% to 85%",
-    ],
-    tech: ["Java", "Spring Boot", "PostgreSQL", "Redis", "AWS", "Docker"],
-    accent: "from-violet-500 to-purple-500",
-  },
-  {
-    role: "Senior Software Engineer",
-    company: "BJIT Ltd",
-    url: "#",
-    period: "2018 — 2022",
-    type: "Full-time",
-    description:
-      "Developed full-stack features for a high-traffic retail platform with 500k daily visitors. Owned search, recommendation engine, and checkout optimizations.",
-    highlights: [
-      "Integrated SRE (Speech Recognition) API into a web app for targeting the Japanese people.",
-      "Developed a music blog for a Japanese client.",
-      "Worked in QR based payment method used in Japan for Japanese vending machines.",
-      "Developed a railway information website for targeting the audience who are aiming to visit Japan.",
-      "Optimized performance of an e-commerce site by 30%  targeting the Japanese market.",
-      "Migrated Javascript React project to Typescript React to support TypeScript features.",
-    ],
-    tech: ["PHP", "Laravel", "Vue.js", "MySQL", "Elasticsearch", "Redis"],
-    accent: "from-purple-500 to-pink-500",
-  },
-  {
-    role: "Software Engineer",
-    company: "Ambala IT",
-    url: "#",
-    period: "2016 — 2018",
-    type: "Full-time",
-    description:
-      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
-    highlights: [
-      "Technical leader of software development team consists of 7 members.",
-      "Lead ERP and Micro Finance software development team since 2015.",
-      "Developing an ERP large scale software including 5 modules (Inventory, FAMS – Fixed Asset Management System, Procurement, HR and Payroll and Accounting).",
-      "Developing Micro Finance software for NGO.",
-      "Managing server with Linux Cent OS.",
-    ],
-    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
-    accent: "from-pink-500 to-rose-500",
-  },
-  {
-    role: "Software Engineer",
-    company: "Orange BD",
-    url: "#",
-    period: "2012 — 2015",
-    type: "Full-time",
-    description:
-      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
-    highlights: [
-      "Website Development using WordPress and custom CMS.",
-      "Software and Web Application Development by using PHP, MySQL, JavaScript, jQuery, AJAX, JSON.",
-      "Customized Web Application.",
-      "Lead a team of Quality Control (QC) as a Head of QC.",
-      "Lead a team of Junior Software Engineer.",
-      "Supervise an Oursourcing Department for the proper guidance and the individual development.",
-    ],
-    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
-    accent: "from-pink-500 to-rose-500",
-  },
-  {
-    role: "Programmer",
-    company: "Software Address",
-    url: "#",
-    period: "2012 — 2012",
-    type: "Full-time",
-    description:
-      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
-    highlights: [
-      "PSD to HTML conversion.",
-      "HTML to WordPress conversion.",
-      "Custom Software Development using PHP and MySQL.",
-      "Website and Blog Development using WordPress.",
-      "Website Development using Joomla, Drupal.",
-      "Website Redesign and Maintenance.",
-      "Customized Web Application.",
-    ],
-    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
-    accent: "from-pink-500 to-rose-500",
-  },
-  {
-    role: "Web Developer",
-    company: "Untitled IT Solutions",
-    url: "#",
-    period: "2011 — 2011",
-    type: "Full-time",
-    description:
-      "Started my professional journey building CMS-driven websites and internal tools for SMB clients. Gained solid foundations in web standards, accessibility, and agile delivery.",
-    highlights: [
-      "PSD to HTML conversion.",
-      "HTML to WordPress conversion.",
-      "Website and Blog Development using WordPress.",
-      "Customization and Modification of WordPress and WordPress plugins.",
-      "Website Redesign and Maintenance.",
-      "Customized Web Application.",
-    ],
-    tech: ["PHP", "WordPress", "jQuery", "MySQL", "HTML/CSS"],
-    accent: "from-pink-500 to-rose-500",
-  },
-];
+import type { Experience as ExperienceEntry } from "@/lib/types";
 
-export default function Experience() {
+export default function Experience({
+  experiences,
+}: {
+  experiences: ExperienceEntry[];
+}) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -172,8 +48,8 @@ export default function Experience() {
           <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/50 via-violet-500/30 to-transparent" />
 
           <div className="space-y-10">
-            {experiences.map((exp, i) => (
-              <div key={i} className="section-reveal relative pl-16 md:pl-20">
+            {experiences.map((exp) => (
+              <div key={exp.id} className="section-reveal relative pl-16 md:pl-20">
                 {/* Timeline dot */}
                 <div
                   className={`absolute left-4 md:left-5 top-6 w-5 h-5 rounded-full bg-gradient-to-br ${exp.accent} shadow-lg flex items-center justify-center`}

@@ -2,16 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
+import { SECTIONS, type SectionKey } from "@/lib/sections";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
-
-export default function Navbar() {
+export default function Navbar({
+  active,
+  onSelect,
+}: {
+  active: SectionKey;
+  onSelect: (section: SectionKey) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,10 +20,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleSelect = (section: SectionKey) => {
     setIsOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    onSelect(section);
   };
 
   return (
@@ -37,7 +35,7 @@ export default function Navbar() {
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <button
-          onClick={() => handleNavClick("#hero")}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex items-center gap-2 text-white font-bold text-lg group"
         >
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -48,29 +46,34 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
+          {SECTIONS.map(({ key, label }) => (
+            <li key={key}>
               <button
-                onClick={() => handleNavClick(link.href)}
-                className="text-slate-400 hover:text-white text-sm font-medium transition-colors duration-200 relative group"
+                onClick={() => handleSelect(key)}
+                aria-current={active === key ? "true" : undefined}
+                className={`text-sm font-medium transition-colors duration-200 relative group ${
+                  active === key
+                    ? "text-white"
+                    : "text-slate-400 hover:text-white"
+                }`}
               >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-violet-600 group-hover:w-full transition-all duration-300" />
+                {label}
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-violet-600 transition-all duration-300 ${
+                    active === key ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
               </button>
             </li>
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavClick("#contact");
-          }}
+        <button
+          onClick={() => handleSelect("contact")}
           className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-medium hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-lg shadow-indigo-500/25"
         >
           Hire Me
-        </a>
+        </button>
 
         {/* Mobile toggle */}
         <button
@@ -89,19 +92,22 @@ export default function Navbar() {
         } bg-[#0f0f1a]/95 backdrop-blur-xl border-b border-white/5`}
       >
         <ul className="flex flex-col px-6 py-4 gap-4">
-          {navLinks.map((link) => (
-            <li key={link.href}>
+          {SECTIONS.map(({ key, label }) => (
+            <li key={key}>
               <button
-                onClick={() => handleNavClick(link.href)}
-                className="text-slate-300 hover:text-white text-sm font-medium w-full text-left py-2 border-b border-white/5 transition-colors"
+                onClick={() => handleSelect(key)}
+                aria-current={active === key ? "true" : undefined}
+                className={`text-sm font-medium w-full text-left py-2 border-b border-white/5 transition-colors ${
+                  active === key ? "text-white" : "text-slate-300 hover:text-white"
+                }`}
               >
-                {link.label}
+                {label}
               </button>
             </li>
           ))}
           <li>
             <button
-              onClick={() => handleNavClick("#contact")}
+              onClick={() => handleSelect("contact")}
               className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-medium"
             >
               Hire Me
