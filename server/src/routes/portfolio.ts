@@ -3,6 +3,7 @@ import { profile } from "../data/profile";
 import { skillCategories, techBadges } from "../data/skills";
 import { experiences } from "../data/experience";
 import { projects } from "../data/projects";
+import { courses } from "../data/courses";
 import { HttpError } from "../errors";
 
 const router = Router();
@@ -53,6 +54,10 @@ router.get("/projects/:id", (req, res) => {
     throw new HttpError(404, `No project found with id "${req.params.id}"`);
   }
   res.json({ data: project });
+});
+
+router.get("/courses", (_req, res) => {
+  res.json({ data: courses, count: courses.length });
 });
 
 export default router;

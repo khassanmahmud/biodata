@@ -2,7 +2,7 @@
 
 Standalone Express + TypeScript API for the `about-me` portfolio site. The portfolio
 content (profile, skills, experience, projects) that previously lived only inside the
-React components is now served over HTTP, and the contact form posts to it.
+React components is now served over HTTP.
 
 ## Requirements
 
@@ -46,40 +46,23 @@ Base URL: `http://localhost:4000`
 | Method | Path                     | Description                                       |
 | ------ | ------------------------ | ------------------------------------------------- |
 | GET    | `/`                      | Service index listing every available endpoint    |
-| GET    | `/health`                | Liveness probe with uptime and message count      |
+| GET    | `/health`                | Liveness probe with uptime                        |
 | GET    | `/api/profile`           | Name, title, tagline, summary, stats, socials     |
 | GET    | `/api/skills`            | Skill categories with levels + flat tech badges   |
 | GET    | `/api/experience`        | Full work history                                 |
 | GET    | `/api/experience/:id`    | Single role by id                                 |
 | GET    | `/api/projects`          | All projects; `?featured=true\|false` to filter   |
 | GET    | `/api/projects/:id`      | Single project by id                              |
-| POST   | `/api/contact`           | Submit a contact message                          |
 
 ### Examples
 
 ```bash
 curl http://localhost:4000/api/projects?featured=true
 curl http://localhost:4000/api/projects/openauth
-
-curl -X POST http://localhost:4000/api/contact \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "name": "Jane Doe",
-    "email": "jane@example.com",
-    "subject": "Project inquiry",
-    "message": "I would like to discuss a new project with you."
-  }'
-# 201 -> { "ok": true, "id": "...", "receivedAt": "..." }
 ```
 
 List endpoints return `{ "data": [...], "count": n }`; single-resource endpoints
 return `{ "data": { ... } }`.
-
-### Validation
-
-`POST /api/contact` requires `name` (2–100), `email` (valid address, ≤254),
-`subject` (3–150) and `message` (10–5000) characters. Values are trimmed.
-Failures return `422` with a per-field list.
 
 ## Error format
 
@@ -88,23 +71,18 @@ All errors share one shape:
 ```json
 {
   "error": {
-    "status": 422,
-    "message": "Validation failed",
-    "details": [{ "field": "email", "message": "Email must be a valid email address" }]
+    "status": 404,
+    "message": "No project found with id \"example\""
   }
 }
 ```
 
-`400` invalid/malformed body · `404` unknown route or resource · `422` validation
-failure · `500` unexpected server error.
+`400` invalid query parameter · `404` unknown route or resource · `500` unexpected
+server error.
 
 ## Notes
 
-- Contact messages are stored **in memory** and are lost on restart. Swap
-  `src/messages.ts` for a database, email provider, or queue before relying on it.
-- There is no rate limiting on `POST /api/contact` yet — add one (e.g.
-  `express-rate-limit`) before exposing this publicly.
-- The frontend calls this API from `src/components/Contact.tsx` using
+- The frontend calls this API from `src/lib/api.ts` using
   `NEXT_PUBLIC_API_URL`, which defaults to `http://localhost:4000`. Set it at the
   repository root (not in `src/`) to point somewhere else.
 
@@ -114,9 +92,8 @@ failure · `500` unexpected server error.
 server/
 ├── src/
 │   ├── index.ts            # entry point: reads PORT, starts the listener
-│   ├── app.ts              # express app factory: CORS, JSON, /health, routes
+│   ├── app.ts              # express app factory: CORS, /health, routes
 │   ├── errors.ts           # HttpError
-│   ├── messages.ts         # in-memory contact message store
 │   ├── types.ts            # shared domain types
 │   ├── data/               # portfolio content
 │   │   ├── profile.ts
@@ -127,8 +104,7 @@ server/
 │   │   └── errorHandler.ts # 404 + centralised error responses
 │   └── routes/
 │       ├── index.ts        # mounts routers under /api
-│       ├── portfolio.ts    # profile / skills / experience / projects
-│       └── contact.ts      # POST /api/contact
+│       └── portfolio.ts    # profile / skills / experience / projects
 ├── .env.example
 ├── package.json
 └── tsconfig.json

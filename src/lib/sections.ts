@@ -3,6 +3,7 @@ export const SECTIONS = [
   { key: "skills", label: "Skills" },
   { key: "experience", label: "Experience" },
   { key: "projects", label: "Projects" },
+  { key: "courses", label: "AI Courses" },
   { key: "contact", label: "Contact" },
 ] as const;
 

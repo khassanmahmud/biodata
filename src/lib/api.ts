@@ -1,4 +1,10 @@
-import type { Experience, Profile, Project, SkillCategory } from "./types";
+import type {
+  Course,
+  Experience,
+  Profile,
+  Project,
+  SkillCategory,
+} from "./types";
 
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
@@ -38,4 +44,8 @@ export function fetchExperience(): Promise<Experience[]> {
 
 export function fetchProjects(): Promise<Project[]> {
   return getData<Project[]>("/api/projects");
+}
+
+export function fetchCourses(): Promise<Course[]> {
+  return getData<Course[]>("/api/courses");
 }

@@ -9,6 +9,16 @@ export interface SocialLink {
   href: string;
 }
 
+export interface Education {
+  school: string;
+  degree: string;
+}
+
+export interface Language {
+  name: string;
+  level: string;
+}
+
 export interface Profile {
   name: string;
   initials: string;
@@ -17,22 +27,17 @@ export interface Profile {
   roles: string[];
   location: string;
   email: string;
-  availability: string;
-  responseTime: string;
   summary: string[];
   stats: ProfileStat[];
   socials: SocialLink[];
-}
-
-export interface Skill {
-  name: string;
-  level: number;
+  education: Education[];
+  certifications: string[];
+  languages: Language[];
 }
 
 export interface SkillCategory {
   title: string;
-  color: string;
-  skills: Skill[];
+  skills: string[];
 }
 
 export interface Experience {
@@ -41,32 +46,29 @@ export interface Experience {
   company: string;
   url: string;
   period: string;
+  location: string;
   type: string;
   description: string;
   highlights: string[];
   tech: string[];
-  accent: string;
+}
+
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  topics: string[];
+  certificateUrl?: string;
 }
 
 export interface Project {
   id: string;
   title: string;
+  context: string;
   description: string;
-  image: string | null;
   tags: string[];
-  github: string;
-  live: string;
+  github?: string;
+  live?: string;
   featured: boolean;
-  gradient: string;
-  accent: string;
   stars?: number;
-}
-
-export interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  receivedAt: string;
 }

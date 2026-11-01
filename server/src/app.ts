@@ -1,7 +1,6 @@
 import cors from "cors";
 import express, { type Express } from "express";
 import routes from "./routes";
-import { countMessages } from "./messages";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import { requestLogger } from "./middleware/requestLogger";
 
@@ -23,7 +22,6 @@ const ENDPOINTS = {
   experienceById: "GET /api/experience/:id",
   projects: "GET /api/projects?featured=true|false",
   projectById: "GET /api/projects/:id",
-  contact: "POST /api/contact",
 };
 
 export function createApp(): Express {
@@ -32,7 +30,6 @@ export function createApp(): Express {
   app.disable("x-powered-by");
   app.use(requestLogger);
   app.use(cors({ origin: parseCorsOrigins() }));
-  app.use(express.json({ limit: "32kb", strict: false }));
 
   app.get("/", (_req, res) => {
     res.json({
@@ -46,7 +43,6 @@ export function createApp(): Express {
     res.json({
       status: "ok",
       uptime: process.uptime(),
-      messagesReceived: countMessages(),
       timestamp: new Date().toISOString(),
     });
   });
