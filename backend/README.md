@@ -12,7 +12,7 @@ React components is now served over HTTP.
 ## Setup
 
 ```bash
-cd server
+cd backend
 npm install
 cp .env.example .env   # optional, defaults work out of the box
 ```
@@ -29,8 +29,8 @@ cp .env.example .env   # optional, defaults work out of the box
 | `npm start`         | Run the compiled server from `dist/`         |
 | `npm run typecheck` | Type-check without emitting                  |
 
-From the repository root you can use `npm run server:dev`, `npm run server:build`
-and `npm run server:start` instead.
+From the repository root you can use `npm run backend:dev`, `npm run backend:build`
+and `npm run backend:start` instead.
 
 ## Environment variables
 
@@ -89,7 +89,7 @@ server error.
 ## Layout
 
 ```
-server/
+backend/
 ├── src/
 │   ├── index.ts            # entry point: reads PORT, starts the listener
 │   ├── app.ts              # express app factory: CORS, /health, routes

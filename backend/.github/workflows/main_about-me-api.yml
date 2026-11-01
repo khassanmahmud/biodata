@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "server/**"
+      - "backend/**"
       - ".github/workflows/main_about-me-api.yml"
 
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
         run: |
           docker build \
             -t ${{ env.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
-            -f server/Dockerfile \
+            -f backend/Dockerfile \
             server
 
       - name: Push Express API image

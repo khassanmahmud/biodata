@@ -8,5 +8,3 @@ npm-debug.log
 README.md
 .env
 .env.*
-server/node_modules
-server/dist

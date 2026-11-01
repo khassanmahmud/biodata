@@ -6,7 +6,7 @@ import type {
   SkillCategory,
 } from "./types";
 
-// Mirrors server/src/data so the site still renders when the API is unreachable.
+// Mirrors ../backend/src/data so the site still renders when the API is unreachable.
 
 export const fallbackProfile: Profile = {
   name: "Md. Rabiul Hassan Mahmud",
