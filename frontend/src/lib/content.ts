@@ -25,7 +25,7 @@ export const profile: Profile = {
   email: "hassanmahmud.sa@gmail.com",
   summary: [
     "I've been building software for 15 years, starting with PHP and WordPress sites in Bangladesh in 2011 and moving through ERP and microfinance systems to full-stack products for the Japanese market.",
-    "Since 2018 I've worked at BJIT, first in Bangladesh and now in Tokyo, where I'm a Senior Software Manager and team lead. My work there has included speech recognition in a web app, QR payments for vending machines, and a 30% performance improvement on an e-commerce site.",
+    "Since 2018 I've worked at BJIT, first in Bangladesh and now in Tokyo, where I'm a Senior Software Engineer and team lead. My work there has included speech recognition in a web app, QR payments for vending machines, and a 30% performance improvement on an e-commerce site.",
     "I work AI-first: multi-agent systems, the Model Context Protocol, Claude Code and OpenAI Codex are part of how my team designs and ships software.",
   ],
   stats: [
@@ -144,7 +144,7 @@ export const techBadges: string[] = [
 export const experiences: Experience[] = [
   {
     id: "bjit-senior-software-manager",
-    role: "Senior Software Manager, Team Lead",
+    role: "Senior Software Engineer | Team Lead",
     company: "BJIT Inc",
     url: "",
     period: "Aug 2023 – Present",
@@ -157,7 +157,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "bjit-principal-software-engineer",
-    role: "Principal Software Engineer, Team Lead",
+    role: "Principal Software Engineer | Team Lead",
     company: "BJIT Ltd",
     url: "",
     period: "Jul 2022 – Aug 2023",
@@ -188,7 +188,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "ambala-it",
-    role: "Software Engineer, Team Lead",
+    role: "Software Engineer | Team Lead",
     company: "Ambala IT",
     url: "",
     period: "Oct 2016 – Sep 2018",
