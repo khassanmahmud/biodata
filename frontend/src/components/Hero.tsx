@@ -27,7 +27,7 @@ export default function Hero({ profile }: { profile: Profile }) {
           </p>
 
           <h2 className="font-mono font-semibold text-base mt-7 mb-2">
-            What I do
+            What I do?
           </h2>
           <ul className="list-disc pl-5 marker:text-brass-500 text-moss-800 space-y-1">
             {profile.roles.map((role) => (
