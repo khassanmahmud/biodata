@@ -6,9 +6,9 @@ import type {
   SkillCategory,
 } from "./types";
 
-// Mirrors ../backend/src/data so the site still renders when the API is unreachable.
+// Site content, bundled into the static export.
 
-export const fallbackProfile: Profile = {
+export const profile: Profile = {
   name: "Md. Rabiul Hassan Mahmud",
   initials: "RA",
   title: "AI-first Full Stack Engineer",
@@ -65,7 +65,7 @@ export const fallbackProfile: Profile = {
   ],
 };
 
-export const fallbackSkillCategories: SkillCategory[] = [
+export const skillCategories: SkillCategory[] = [
   {
     title: "AI",
     skills: [
@@ -126,7 +126,7 @@ export const fallbackSkillCategories: SkillCategory[] = [
   },
 ];
 
-export const fallbackTechBadges: string[] = [
+export const techBadges: string[] = [
   "Git",
   "GitHub",
   "Bitbucket",
@@ -141,7 +141,7 @@ export const fallbackTechBadges: string[] = [
   "Scrum",
 ];
 
-export const fallbackExperiences: Experience[] = [
+export const experiences: Experience[] = [
   {
     id: "bjit-senior-software-manager",
     role: "Senior Software Manager, Team Lead",
@@ -275,7 +275,7 @@ export const fallbackExperiences: Experience[] = [
 
 // Project history from the CV (Md_Rabiul_Hassan_Mahmud.pdf), newest first.
 // Add github/live links where they can be shared.
-export const fallbackProjects: Project[] = [
+export const projects: Project[] = [
   {
     id: "drone-delivery-webshop",
     title: "Drone Delivery – Webshop",
@@ -376,7 +376,7 @@ export const fallbackProjects: Project[] = [
 ];
 
 // AI courses completed, from the certifications on the résumé.
-export const fallbackCourses: Course[] = [
+export const courses: Course[] = [
   {
     id: "ai-builder-n8n",
     title: "AI Builder: Create Agents, Voice Agents & Automations in n8n",

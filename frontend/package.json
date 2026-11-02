@@ -4,12 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/copy-standalone-assets.mjs",
-    "start": "node .next/standalone/server.js",
-    "lint": "eslint",
-    "backend:dev": "npm --prefix ../backend run dev",
-    "backend:build": "npm --prefix ../backend run build",
-    "backend:start": "npm --prefix ../backend run start"
+    "build": "next build",
+    "lint": "eslint"
   },
   "dependencies": {
     "lucide-react": "^1.21.0",
